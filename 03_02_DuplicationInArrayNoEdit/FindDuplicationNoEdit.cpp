@@ -18,6 +18,15 @@ https://github.com/zhedahht/CodingInterviewChinese2/blob/master/LICENSE.txt)
 // 数组。例如，如果输入长度为8的数组{2, 3, 5, 4, 3, 2, 6, 7}，那么对应的
 // 输出是重复的数字2或者3。
 
+/* 修改
+ *
+ * 日期：20180704
+ * 1. 增加一些注释方便理解，顺便对函数 getDuplication 进行排版。
+ * 2. 修改 main 函数返回值为 int 。
+ *
+ * by won
+ */
+
 #include <iostream>
 
 int countRange(const int* numbers, int length, int start, int end);
@@ -30,28 +39,43 @@ int countRange(const int* numbers, int length, int start, int end);
 //        负数  - 输入无效，或者数组中没有重复的数字
 int getDuplication(const int* numbers, int length)
 {
-    if(numbers == nullptr || length <= 0)
+    if (numbers == nullptr || length <= 0)
+    {
         return -1;
+    }
 
     int start = 1;
-    int end = length - 1;
-    while(end >= start)
+    int end = length - 1; /* 因为所有数字都在 [1, length - 1] 范围，所以最大值为 length - 1 */
+
+    while (end >= start)
     {
-        int middle = ((end - start) >> 1) + start;
+        //int middle = ((end - start) >> 1) + start;
+        int middle = (end + start) / 2;     /* 根据二分法，每次取中间值进行对比统计 */
         int count = countRange(numbers, length, start, middle);
-        if(end == start)
+
+        /* 范围缩小到一个数字，且这个数字出现大于1次时即找到重复的数。 */
+        if (end == start)
         {
-            if(count > 1)
+            if (count > 1)
+            {
                 return start;
+            }
             else
+            {
                 break;
+            }
         }
 
-        if(count > (middle - start + 1))
+        if (count > (middle - start + 1))
+        {
             end = middle;
+        }
         else
+        {
             start = middle + 1;
+        }
     }
+
     return -1;
 }
 
@@ -162,7 +186,7 @@ void test10()
     test("test10", numbers, 0, duplications, sizeof(duplications) / sizeof(int));
 }
 
-void main()
+int main(int argc, char **argv)
 {
     test1();
     test2();
@@ -174,4 +198,6 @@ void main()
     test8();
     test9();
     test10();
+
+    return 0;
 }
