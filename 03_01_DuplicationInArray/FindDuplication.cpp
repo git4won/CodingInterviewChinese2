@@ -17,6 +17,15 @@ https://github.com/zhedahht/CodingInterviewChinese2/blob/master/LICENSE.txt)
 // 也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。例如，如果输入长度为7的数组{2, 3, 1, 0, 2, 5, 3}，
 // 那么对应的输出是重复的数字2或者3。
 
+/* 修改
+ *
+ * 日期：20180703
+ * 1. 增加对 duplicate 函数参数 int *duplication 的判空处理
+ * 2. main 函数返回类型由 void 改为 int
+ *
+ * by won
+ */
+
 #include <cstdio>
 
 // 参数:
@@ -28,13 +37,17 @@ https://github.com/zhedahht/CodingInterviewChinese2/blob/master/LICENSE.txt)
 //        false - 输入无效，或者数组中没有重复的数字
 bool duplicate(int numbers[], int length, int* duplication)
 {
-    if(numbers == nullptr || length <= 0)
+    if(numbers == nullptr || length <= 0 || duplication == nullptr)
+    {
         return false;
+    }
 
     for(int i = 0; i < length; ++i)
     {
         if(numbers[i] < 0 || numbers[i] > length - 1)
+        {
             return false;
+        }
     }
 
     for(int i = 0; i < length; ++i)
@@ -63,7 +76,9 @@ bool contains(int array[], int length, int number)
     for(int i = 0; i < length; ++i)
     {
         if(array[i] == number)
+        {
             return true;
+        }
     }
 
     return false;
@@ -81,15 +96,23 @@ void test(char* testName, int numbers[], int lengthNumbers, int expected[], int 
         if(validArgument)
         {
             if(contains(expected, expectedExpected, duplication))
+            {
                 printf("Passed.\n");
+            }
             else
+            {
                 printf("FAILED.\n");
+            }
         }
         else
+        {
             printf("Passed.\n");
+        }
     }
     else
+    {
         printf("FAILED.\n");
+    }
 }
 
 // 重复的数字是数组中最小的数字
@@ -140,7 +163,7 @@ void test6()
     test("Test6", numbers, 0, duplications, sizeof(duplications) / sizeof(int), false);
 }
 
-void main()
+int main(int argc, char *argv[])
 {
     test1();
     test2();
@@ -148,4 +171,6 @@ void main()
     test4();
     test5();
     test6();
+
+    return 0;
 }
