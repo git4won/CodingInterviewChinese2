@@ -17,8 +17,21 @@ https://github.com/zhedahht/CodingInterviewChinese2/blob/master/LICENSE.txt)
 // 照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个
 // 整数，判断数组中是否含有该整数。
 
+
+/* 修改
+ * 
+ * 日期：20180706
+ * 1、增加从左下角开始查找的方法（原方法为从右上角开始查找）
+ * 2、对Test函数第一个参数增加const修饰符，避免警告： 
+ *    warning: ISO C++ forbids converting a string constant to ‘char*’ [-Wwrite-strings]
+ *
+ * by won
+ */
+
 #include <cstdio>
 
+#if 0
+/* 从右上角开始 */
 bool Find(int* matrix, int rows, int columns, int number)
 {
     bool found = false;
@@ -44,8 +57,45 @@ bool Find(int* matrix, int rows, int columns, int number)
     return found;
 }
 
+#else
+
+/* 从左下角开始 */
+bool Find(int *matrix, int rows, int columns, int number)
+{
+    bool found = false;
+    
+    if (matrix == nullptr || rows < 1 || columns < 1)
+    {
+        return false;
+    }
+
+    int row = rows - 1;
+    int column = 0;
+
+    while (row >= 0 && column < columns)
+    {
+        //printf("matrix[%d][%d] = %d\n", row, column, matrix[row * columns + column]);
+        if (matrix[row * columns + column] == number)
+        {
+            found = true;
+            break;
+        }
+        else if (matrix[row * columns + column] > number)
+        {
+            row--;
+        }
+        else
+        {
+            column++;
+        }
+    }
+
+    return found;
+}
+#endif
+
 // ====================测试代码====================
-void Test(char* testName, int* matrix, int rows, int columns, int number, bool expected)
+void Test(const char* testName, int* matrix, int rows, int columns, int number, bool expected)
 {
     if(testName != nullptr)
         printf("%s begins: ", testName);
