@@ -15,7 +15,16 @@ https://github.com/zhedahht/CodingInterviewChinese2/blob/master/LICENSE.txt)
 // 面试题6：从尾到头打印链表
 // 题目：输入一个链表的头结点，从尾到头反过来打印出每个结点的值。
 
-#include "..\Utilities\List.h"
+/* 修改：
+ *
+ * 日期：20180706
+ * 1. 修改路径的表示形式，Linux使用'/'，windows使用'\'
+ *
+ * by won
+ */
+
+#include "../Utilities/List.h"
+#include <cstdio>
 #include <stack>
 
 void PrintListReversingly_Iteratively(ListNode* pHead)

@@ -12,7 +12,15 @@ https://github.com/zhedahht/CodingInterviewChinese2/blob/master/LICENSE.txt)
 // 作者：何海涛
 //==================================================================
 
-#include "list.h"
+/* 修改：
+ *
+ * 日期：20180706
+ * 1. 修改头文件名，Linux下大小写敏感
+ *
+ * by won
+ */
+
+#include "List.h"
 #include <stdio.h>
 #include <stdlib.h>
 
